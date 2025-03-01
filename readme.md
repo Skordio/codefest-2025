@@ -35,7 +35,7 @@ If you want to run the frontend on your machine, you need to have node installed
 
 Once you have node installed, I recommend using pnpm instead of npm.
 
-To install pnpm, just go [here](https://pnpm.io/installation) and follow the instructions for your system.
+To install pnpm, just go to the [installation page](https://pnpm.io/installation) and follow the instructions for your system.
 
 Once you have pnpm installed, just run this command while inside the `frontend/` folder:
 
