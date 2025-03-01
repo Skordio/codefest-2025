@@ -1,20 +1,16 @@
-from google.cloud import speech
-import io
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+api_key = os.getenv("OPENAI_APIKEY")
+client = OpenAI(api_key=api_key)
 
 def transcribe_audio(file_path):
-    client = speech.SpeechClient()
-
-    with io.open(file_path, "rb") as audio_file:
-        content = audio_file.read()
-
-    audio = speech.RecognitionAudio(content=content)
-    config = speech.RecognitionConfig(
-        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=16000,
-        language_code="en-US"
+    transcription = client.audio.transcriptions.create(
+        model="whisper-1", 
+        file=file_path, 
+        response_format="text"
     )
 
-    response = client.recognize(config=config, audio=audio)
-
-    transcript = " ".join([result.alternatives[0].transcript for result in response.results])
-    return transcript
+    return transcription
