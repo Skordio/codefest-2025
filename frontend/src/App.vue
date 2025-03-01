@@ -30,11 +30,6 @@
               </v-card>
             </v-col>
           </v-row>
-          <!-- <v-row class="d-flex" justify="center">
-            <v-col cols="4">
-              <v-file-input label="File input" variant="solo-filled"></v-file-input>
-            </v-col>
-          </v-row> -->
         </v-container>
       </v-main>
     </v-layout>

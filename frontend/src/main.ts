@@ -12,23 +12,23 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+// let colorChoices = {
+//   primary: '#033F63', // #033F63
+//   secondary: '#28666E', // #28666E
+//   accent: '#FEDC97', // #FEDC97
+//   surface: '#B5B682', // #B5B682
+//   background: '#7C9885', // #7C9885
+// }
+
+// colorChoices = {
+//   primary: '#a3b18a', // #a3b18a
+//   secondary: '#588157', // #588157
+//   accent: '#dad7cd', // #dad7cd
+//   surface: '#3a5a40', // #3a5a40
+//   background: '#344e41', // #344e41
+// }
+
 let colorChoices = {
-  primary: '#033F63', // #033F63
-  secondary: '#28666E', // #28666E
-  accent: '#FEDC97', // #FEDC97
-  surface: '#B5B682', // #B5B682
-  background: '#7C9885', // #7C9885
-}
-
-colorChoices = {
-  primary: '#a3b18a', // #a3b18a
-  secondary: '#588157', // #588157
-  accent: '#dad7cd', // #dad7cd
-  surface: '#3a5a40', // #3a5a40
-  background: '#344e41', // #344e41
-}
-
-colorChoices = {
   primary: '#457b9d', // #457b9d
   secondary: '#1d3557', // #1d3557
   accent: '#e63946', // #e63946
@@ -49,17 +49,6 @@ const vuetify = createVuetify({
     themes: {
       light: {
         dark: false,
-        // colors: {
-        //   primary: colors.red.darken1, // #E53935
-        //   secondary: colors.red.lighten4, // #FFCDD2
-        //   accent: colors.indigo.base, // #3F51B5
-        //   surface: colors.grey.lighten5,
-        //   error: colors.red.accent4,
-        //   info: colors.lightBlue.base,
-        //   success: colors.green.base,
-        //   warning: colors.amber.base,
-        //   background: colors.grey.lighten5,
-        // }
         colors: {
           ...colorChoices,
           error: colors.red.accent1,
