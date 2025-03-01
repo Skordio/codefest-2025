@@ -18,10 +18,6 @@
 import * as fs from "fs"
 import { ref } from 'vue'
 
-
 const file = ref < File > ();
-
-
-
 
 </script>
