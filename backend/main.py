@@ -3,6 +3,8 @@
 '''
 
 from flask import Flask, request, jsonify
+import os
+from transcribe import transcribe_audio
 
 app = Flask(__name__)
 
@@ -32,6 +34,35 @@ def update_item(item_id):
 def delete_item(item_id):
     # Delete item from database based on item_id
     return jsonify({'message': 'Item deleted successfully'})
+
+#API STUFF IDK
+
+UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+@app.route("/upload", methods=["POST"])
+def upload_file():
+    if "file" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    file = request.files["file"]
+    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    file.save(file_path)
+
+    return jsonify({"message": "File uploaded successfully", "file_path": file_path}), 200
+
+@app.route("/transcribe", methods=["POST"])
+def transcribe():
+    data = request.json
+    file_path = data.get("file_path")
+
+    if not file_path or not os.path.exists(file_path):
+        return jsonify({"error": "Invalid file path"}), 400
+
+    transcript = transcribe_audio(file_path)
+    return jsonify({"transcript": transcript})
+
+#End API stuff
 
 if __name__ == '__main__':
     app.run(debug=True)
