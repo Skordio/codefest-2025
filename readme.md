@@ -1,6 +1,6 @@
 # Codefest 2025 Draft Repo
 
-Here I am just gonna make a django app and maybe a frontend to play around with Gemini API
+Our idea for this repo is to create a webapp where you can upload a video or audio file containing a lecture, and our app will be able to create different types of study aids from that video - quizzes, study guides, and other learning materials.
 
 ## Repo setup
 
