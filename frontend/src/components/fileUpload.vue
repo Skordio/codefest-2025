@@ -8,7 +8,7 @@
       </v-card-text>
       <v-container fluid class="d-flex flex-column mt-n5">
         <v-file-input v-model="file" label="File input" variant="outlined" :multiple="false"></v-file-input>
-        <v-btn color="secondary" @click="uploadFile()">Upload</v-btn>
+        <v-btn color="secondary" @click="transcribe()">Upload</v-btn>
       </v-container>
     </v-card>
 </template>
@@ -18,9 +18,8 @@
 import * as fs from "fs"
 import { ref } from 'vue'
 
-const file = ref<File>();
 
-
+const file = ref < File > ();
 
 
 

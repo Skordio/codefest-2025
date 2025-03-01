@@ -203,3 +203,5 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+openaikey.ts
