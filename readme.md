@@ -12,25 +12,19 @@ This repo uses Django Python for the backend, and venv for python library manage
 
 To run the python django server on your own machine, you need to have python installed and create your own virtual environment.
 
-First create a virtual environment like this (once you have python installed)
+First create a virtual environment like this (run this command in the root of the repo once you have python 3.12 installed):
 ```
 python3 -3.12 -m venv .venv
 ```
 
-then activate the environment in your terminal:
+then activate the environment in your terminal (also run this at the root of the repo):
 
-Mac
-```
-source ./venv/bin/activate
-```
+Mac: `source ./venv/bin/activate`
 
-Windows powershell
-```
-./venv/Scripts/Activate.ps1
-```
+Windows powershell: `./venv/Scripts/Activate.ps1`
 
 
-then install the libraries like this:
+then use pip to install the libraries:
 ```
 pip install -r requirements.txt
 ```
@@ -41,8 +35,12 @@ If you want to run the frontend on your machine, you need to have node installed
 
 Once you have node installed, I recommend using pnpm instead of npm.
 
-To install pnpm for Windows powershell, just run this command:
+To install pnpm, just go [here](https://pnpm.io/installation) and follow the instructions for your system.
+
+Once you have pnpm installed, just run this command while inside the `frontend/` folder:
 
 ```
-Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression
+pnpm install
 ```
+
+this will install all necessary node libraries to run the frontend app on your machine.
