@@ -13,11 +13,12 @@
     </v-card>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import ffmpeg from "ffmpeg.js"
+<script setup lang="ts">
+// @ts-nocheck
+import * as fs from "fs"
+import { ref } from 'vue'
 
-const file = ref();
+const file = ref<File>();
 
 
 
