@@ -2,7 +2,8 @@
   <v-app>
     <v-layout>
       <v-app-bar class="bg-surface" dark>
-        <v-container fluid class="d-flex justify-center">
+        <v-container fluid class="d-flex justify-center ga-2">
+          <v-icon class="pt-1 mt-1">mdi-lock</v-icon>
           <h2>{{ title }}</h2>
         </v-container>
       </v-app-bar>
@@ -16,18 +17,8 @@
       <v-main class="bg-background">
         <v-container fluid class="d-flex align-center h-100">
           <v-row class="d-flex" justify="center">
-            <v-col cols="4">
-              <v-card class="bg-secondary elevation-8">
-                <v-card-title>Upload</v-card-title>
-                <v-card-text>
-                  <p>
-                    Upload a video or an audio file about something you want to study:
-                  </p>
-                </v-card-text>
-                <v-container fluid class="d-flex">
-                  <v-file-input label="File input" variant="outlined"></v-file-input>
-                </v-container>
-              </v-card>
+            <v-col lg="4" md="6" sm="8" cols="8">
+              <file-upload />
             </v-col>
           </v-row>
         </v-container>
@@ -39,6 +30,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
+import fileUpload from './components/fileUpload.vue';
 
 const title = ref("Lock In SG")
 
