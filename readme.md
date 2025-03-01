@@ -14,7 +14,7 @@ To run the python django server on your own machine, you need to have python ins
 
 First create a virtual environment like this (run this command in the root of the repo once you have python 3.12 installed):
 ```
-python3 -3.12 -m venv .venv
+python3 -m venv venv
 ```
 
 then activate the environment in your terminal (also run this at the root of the repo):
