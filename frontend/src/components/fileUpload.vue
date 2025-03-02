@@ -10,7 +10,7 @@
         <v-file-input v-model="file" label="File input" variant="outlined" :multiple="false"></v-file-input>
         <div class="d-flex">
           <v-checkbox v-model="studyGuide" label="Study Guide"></v-checkbox>
-          <v-checkbox v-model="quiz" label="Quiz"></v-checkbox>
+          <!-- <v-checkbox v-model="quiz" label="Quiz"></v-checkbox> -->
           <v-checkbox v-model="flashcards" label="Flashcards"></v-checkbox>
         </div>
         <v-btn color="secondary" @click="transcribe()">Upload</v-btn>
