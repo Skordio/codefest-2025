@@ -2,11 +2,14 @@
     boilerplate
 '''
 
-from flask import Flask, request, Request, jsonify
+from flask import Flask, request, Request, jsonify, send_file
 from flask_cors import CORS
 import os, ffmpeg
 from transcribe import transcribe_audio_from_path
 from llm import generateQuiz, generateFlashcards, generateStudyGuide
+from create_pdf import create_flashcards_pdf, create_quiz_pdf, create_study_guide_pdf
+from io import BytesIO
+import zipfile
 
 app = Flask(__name__)
 CORS(app)  # Enables CORS for all routes
@@ -17,7 +20,9 @@ def index():
 
 
 UPLOAD_FOLDER = "uploads"
+OUTPUT_FOLDER = "outputs"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 # Helper functions
 
@@ -71,6 +76,7 @@ def transcribe_audio_file(request:Request) -> str:
     transcript = transcribe_audio_from_path(compressed_file_path)
     return transcript
 
+
 # Endpoints
 
 @app.route("/transcribe", methods=["POST"])
@@ -80,29 +86,38 @@ def transcribe():
 
 @app.route("/create", methods=["POST"])
 def create():
-    quiz = True if request.args.get("quiz") == "true" else False
-    studyGuide = True if request.args.get("study_guide") == "true" else False
-    flashcards = True if request.args.get("flash_cards") == "true" else False
+    quiz = request.args.get("quiz") == "true"
+    studyGuide = request.args.get("study_guide") == "true"
+    flashcards = request.args.get("flash_cards") == "true"
 
     transcript = transcribe_audio_file(request)
+    pdf_files = []
 
     if quiz:
-        quiz = generateQuiz(transcript)
-    else:
-        quiz = {}
-
+        quiz_file_path = create_quiz_pdf(generateQuiz(transcript))
+        pdf_files.append(quiz_file_path)
+    
     if studyGuide:
-        studyGuide = generateStudyGuide(transcript)
-    else:
-        studyGuide = {}
-
+        study_guide_file_path = create_study_guide_pdf(generateStudyGuide(transcript))
+        pdf_files.append(study_guide_file_path)
+    
     if flashcards:
-        flashcards = generateFlashcards(transcript)
-    else:
-        flashcards = {}
-
-    return jsonify({"quiz": quiz, "studyGuide": studyGuide, "flashcards": flashcards})
-
+        flashcards_file_path = create_flashcards_pdf(generateFlashcards(transcript))
+        pdf_files.append(flashcards_file_path)
+    
+    if not pdf_files:
+        return {"message": "No files generated."}, 400
+    
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        for file_path in pdf_files:
+            zip_file.write(file_path, os.path.basename(file_path))
+    
+    for file_path in pdf_files:
+        os.remove(file_path)
+    
+    zip_buffer.seek(0)
+    return send_file(zip_buffer, mimetype="application/zip")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

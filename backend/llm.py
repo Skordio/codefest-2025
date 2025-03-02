@@ -38,7 +38,17 @@ def generateStudyGuide(data,):
     try:
         responseArray = parseResponse(response.choices[0].message.content)
     except Exception as e:
-        raise e
+        # try again
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # or "gpt-3.5-turbo"
+            messages=[
+                # {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", 
+                "content": '''can you generate a study guide to review the content from this transcription, please respond in this json format only:{"study_guide":[{"main point":"", "subpoints":["2-3 brief","subpoints","in few words"], "explanation":"helpful description containing several sentences"}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+                }
+            ]
+        )
+        responseArray = parseResponse(response.choices[0].message.content)
         
     return responseArray
 
@@ -58,7 +68,17 @@ def generateFlashcards(data):
     try:
         responseArray = parseResponse(response.choices[0].message.content)
     except Exception as e:
-        raise e
+        # try again
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # or "gpt-3.5-turbo"
+            messages=[
+                # {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", 
+                "content": '''can you generate flash cards for the main ideas included in this transcription, please respond in this json format only:{"flashcards":[{"term/concept":"","explanation":":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+                }
+            ]
+        )
+        responseArray = parseResponse(response.choices[0].message.content)
         
     return responseArray
     
@@ -78,7 +98,17 @@ def generateQuiz(data):
     try:
         responseArray = parseResponse(response.choices[0].message.content)
     except Exception as e:
-        raise e
+        # try again
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # or "gpt-3.5-turbo"
+            messages=[
+                # {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", 
+                "content": '''can you generate 8-10 multiple choice and 8-10 true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":['True', 'False'], "answer":""}, {"question":"", "choices":["a","b","c","d"], "answer":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+                }
+            ]
+        )
+        responseArray = parseResponse(response.choices[0].message.content)
         
     return responseArray
 
