@@ -9,7 +9,7 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 
-def parseResponse(responseString:str, main_key:str):
+def parseResponse(responseString:str):
     responseString = responseString.replace('\n', '')
 
     formattingException = Exception("Response is not well formatted")
@@ -20,9 +20,7 @@ def parseResponse(responseString:str, main_key:str):
     else:
         raise formattingException
     
-    responseArray = resultDict[main_key]
-    
-    return responseArray
+    return resultDict
 
 
 def generateStudyGuide(data,):
@@ -38,7 +36,7 @@ def generateStudyGuide(data,):
     )
 
     try:
-        responseArray = parseResponse(response.choices[0].message.content, 'study_guide')
+        responseArray = parseResponse(response.choices[0].message.content)
     except Exception as e:
         raise e
         
@@ -58,7 +56,7 @@ def generateFlashcards(data):
     )
 
     try:
-        responseArray = parseResponse(response.choices[0].message.content, 'flashcards')
+        responseArray = parseResponse(response.choices[0].message.content)
     except Exception as e:
         raise e
         
@@ -78,7 +76,7 @@ def generateQuiz(data):
     )
 
     try:
-        responseArray = parseResponse(response.choices[0].message.content, 'quiz')
+        responseArray = parseResponse(response.choices[0].message.content)
     except Exception as e:
         raise e
         
@@ -461,5 +459,5 @@ testData = '''00:00:00.000 This video is about learning styles.
 00:14:22.070 I want to thank Google forsponsoring this part of the video
 00:14:24.360 and I want to thank you for watching.'''
 
-generateStudyGuide(testData) # Testing line only
+print(str(generateStudyGuide(testData)).replace("\'", "\"")) # Testing line only
 
