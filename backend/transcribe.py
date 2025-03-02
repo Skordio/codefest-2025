@@ -15,12 +15,12 @@ def transcribe_audio_from_file(sound_file):
     return transcription
 
 def transcribe_audio_from_path(file_path):
-    sound_file = open(file_path, "rb")
-    transcription = client.audio.transcriptions.create(
-        model="whisper-1", 
-        file=sound_file, 
-        response_format="text"
-    )
+    with open(file_path, "rb") as sound_file:
+        transcription = client.audio.transcriptions.create(
+            model="whisper-1", 
+            file=sound_file, 
+            response_format="text"
+        )
 
     return transcription
 
