@@ -36,8 +36,8 @@ class ApiService {
   }
 }
 
-const publicBackend = '165.227.252.124:5000';
-const localBackend = 'localhost:5000';
+const publicBackend = 'http://165.227.252.124:5000';
+const localBackend = 'http://localhost:5000';
 
 // Create an instance with Flask backend URL
 const api = new ApiService(publicBackend);
