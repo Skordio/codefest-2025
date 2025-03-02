@@ -7,25 +7,12 @@
           <h2>{{ title }}</h2>
         </v-container>
       </v-app-bar>
-      <!-- <v-navigation-drawer expand-on-hover rail>
-        <v-list>
-          <v-list-item title="Home"></v-list-item>
-          <v-list-item title="About"></v-list-item>
-        </v-list>
-      </v-navigation-drawer> -->
 
       <v-main class="bg-background">
         <v-card color="background" :class="vCardClass">
           <template #image>
             <v-img alt="turtle" class="bg-background h-100" :src="getImgSrc(imgForBp)" cover />
           </template>
-          <!-- <v-row>
-            <v-col>
-              <v-img src="@/assets/turtle_big.png" alt="turtle">
-
-              </v-img>
-            </v-col>
-          </v-row> -->
           <v-row class="d-flex" :class="vRowClass">
             <v-col lg="6" md="4" cols="2"/>
             <v-col lg="4" md="6" cols="8"><file-upload /></v-col>
@@ -90,3 +77,9 @@ const vRowClass = computed(() => {
 })
 
 </script>
+
+<style>
+html, body {
+  overscroll-behavior: none;
+}
+</style>
