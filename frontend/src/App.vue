@@ -11,7 +11,7 @@
       <v-main class="bg-background">
         <v-card color="background" :class="vCardClass">
           <template #image>
-            <v-img alt="turtle" class="bg-background h-100" :src="getImgSrc(imgForBp)" cover />
+            <v-img alt="turtle" class="bg-background h-100" :src="`/images/${imgForBp}`" cover />
           </template>
           <v-row class="d-flex" :class="vRowClass">
             <v-col lg="6" md="4" cols="2"/>
