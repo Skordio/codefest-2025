@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from transcribe import transcribe_audio_from_file, transcribe_audio_from_path
+from llm import generateQuiz
 
 app = Flask(__name__)
 CORS(app)  # Enables CORS for all routes
@@ -67,6 +68,11 @@ def transcribe():
     transcript = transcribe_audio_from_path(file_path)
     os.remove(file_path)
     return jsonify({"transcript": transcript})
+
+@app.route("/createQuiz", methods=["POST"])
+def createQuiz():
+    getReq = request.get_json()
+    return jsonify(generateQuiz(getReq['transcription']))
 
 #End API stuff
 
