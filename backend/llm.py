@@ -1,13 +1,16 @@
 import openai
 import json
 import os
+from dotenv import load_dotenv
 
 # Set up API key
 
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
 
 
 def generateStudyGuide(data):
-    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    client = openai.OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model="gpt-4o-mini",  # or "gpt-3.5-turbo"
         messages=[
