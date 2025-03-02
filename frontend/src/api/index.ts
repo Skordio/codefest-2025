@@ -41,6 +41,6 @@ const localBackend = 'http://localhost:5000';
 
 // Create an instance with Flask backend URL
 // const api = new ApiService(publicBackend);
-const api = new ApiService(localBackend);
+const api = new ApiService(publicBackend);
 
 export default api;
