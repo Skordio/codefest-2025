@@ -109,8 +109,6 @@ def generateQuiz(data):
             ]
         )
         responseArray = parseResponse(response.choices[0].message.content)
-
-    print(responseArray)
         
     return responseArray
 
