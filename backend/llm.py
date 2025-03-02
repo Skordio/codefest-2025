@@ -44,7 +44,7 @@ def generateStudyGuide(data,):
             messages=[
                 # {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", 
-                "content": '''can you generate a study guide to review the content from this transcription, please respond in this json format only:{"study_guide":[{"main point":"", "subpoints":["2-3 brief","subpoints","in few words"], "explanation":"helpful description containing several sentences"}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+                "content": '''can you generate a study guide to review the content from this transcription, please respond in this json format only:{"study_guide":[{"main point":"", "subpoints":["2-3 brief","subpoints","in few words"], "explanation":"helpful description containing several sentences"}]}.  \n\n''' + data
                 }
             ]
         )
@@ -60,7 +60,7 @@ def generateFlashcards(data):
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you generate flash cards for the main ideas included in this transcription, please respond in this json format only:{"flashcards":[{"term/concept":"","explanation":":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            "content": '''can you generate flash cards for the main ideas included in this transcription, please respond in this json format only:{"flashcards":[{"term/concept":"","explanation":":""}]}.\n\n''' + data
             }
         ]
     )
@@ -90,7 +90,7 @@ def generateQuiz(data):
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you generate 8-10 multiple choice and 8-10 true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":['True', 'False'], "answer":""}, {"question":"", "choices":["a) answer a","b) answer b","c) answer c","d) answer d"], "answer":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            "content": '''can you generate 20 multiple choie and true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":['True', 'False'], "answer":""}, {"question":"", "choices":["a) answer a","b) answer b","c) answer c","d) answer d"], "answer":""}]}. \n\n''' + data
             }
         ]
     )
