@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Set environment variables
-ENV SECRET_KEY="mysecretkey"
+ENV OPENAI_API_KEY="mysecretkey"
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -17,4 +17,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Run the Flask app
-CMD ["python", "app.py"]
+CMD ["python", "main.py"]
