@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+  namespace: lockin-sg
+spec:
+  selector:
+    app: flask-app
+  ports:
+    - protocol: TCP
+      port: 80       # External port
+      targetPort: 5000  # Port inside the container
+  type: LoadBalancer  # Makes it publicly accessible
