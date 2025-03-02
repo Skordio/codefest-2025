@@ -1,4 +1,4 @@
-# Codefest 2025 Draft Repo
+# Codefest 2025  Repo
 
 Our idea for this repo is to create a webapp where you can upload a video or audio file containing a lecture, and our app will be able to create different types of study aids from that video - quizzes, study guides, and other learning materials.
 
