@@ -40,21 +40,25 @@ def index():
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@app.route("/upload", methods=["POST"])
-def upload_file():
+# @app.route("/upload", methods=["POST"])
+# def upload_file():
+#     if "file" not in request.files:
+#         return jsonify({"error": "No file uploaded"}), 400
+
+#     file = request.files["file"]
+#     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+#     file.save(file_path)
+
+#     return jsonify({"message": "File uploaded successfully", "file_path": file_path}), 200
+
+@app.route("/transcribe", methods=["POST"])
+def transcribe():
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
 
     file = request.files["file"]
     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(file_path)
-
-    return jsonify({"message": "File uploaded successfully", "file_path": file_path}), 200
-
-@app.route("/transcribe", methods=["POST"])
-def transcribe():
-    data = request.json
-    file_path = data.get("file_path")
 
     if not file_path or not os.path.exists(file_path):
         return jsonify({"error": "Invalid file path"}), 400
