@@ -4,14 +4,16 @@ import os
 
 # Set up API key
 
-def generateQuiz(data):
+
+
+def generateStudyGuide(data):
     client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     response = client.chat.completions.create(
         model="gpt-4o-mini",  # or "gpt-3.5-turbo"
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you give me multiple choice and true/false quiz questions with their answers from this transcription can you make it in json format result:{[{'question':'', 'choices':'', 'answer':''}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + testData
+            "content": '''can you give me a study guide to review the content from this transcription and can you make it in json format result:{[{'main point':'', 'subpoints':'', 'concise and helpful explanation':''}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
             }
         ]
     )
@@ -21,7 +23,43 @@ def generateQuiz(data):
     resultDict = json.loads(resultString)
     return resultDict
 
-# print(resultDict)
+
+def generateFlashcards(data):
+    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",  # or "gpt-3.5-turbo"
+        messages=[
+            # {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", 
+            "content": '''can you give me flash cards to use as a study guide based on this transcription, and can you make it in json format result:{[{'term/concept':'', 'explanation':':''}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            }
+        ]
+    )
+
+    # print(response.choices[0].message.content)
+    resultString = response.choices[0].message.content
+    resultDict = json.loads(resultString)
+    # print(resultDict) # Testing line only, comment after
+    return resultDict
+    
+
+def generateQuiz(data):
+    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",  # or "gpt-3.5-turbo"
+        messages=[
+            # {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", 
+            "content": '''can you give me multiple choice and true/false quiz questions with their answers from this transcription can you make it in json format result:{[{'question':'', 'choices':'', 'answer':''}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            }
+        ]
+    )
+
+    # print(response.choices[0].message.content)
+    resultString = response.choices[0].message.content
+    resultDict = json.loads(resultString)
+    return resultDict
+
 
 testData = '''00:00:00.000 This video is about learning styles.
 00:00:01.987 What kind of learner are you?
@@ -398,4 +436,5 @@ testData = '''00:00:00.000 This video is about learning styles.
 00:14:18.850 to think more criticallyabout how we get information.
 00:14:22.070 I want to thank Google forsponsoring this part of the video
 00:14:24.360 and I want to thank you for watching.'''
-# print(generateQuiz(testData))
+
+# print(generateGuide(testData)) # Testing line only
