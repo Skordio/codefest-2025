@@ -12,6 +12,9 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@pdfme/common": "^5.3.8",
+    "@pdfme/generator": "^5.3.8",
+    "@pdfme/schemas": "^5.3.8",
     "bootstrap": "^5.3.3",
     "pinia": "^3.0.1",
     "sass-embedded": "^1.85.1",

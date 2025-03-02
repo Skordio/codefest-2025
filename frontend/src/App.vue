@@ -15,7 +15,9 @@
           </template>
           <v-row class="d-flex" :class="vRowClass">
             <v-col lg="6" md="4" cols="2"/>
-            <v-col lg="4" md="6" cols="8"><file-upload /></v-col>
+            <v-col lg="4" md="6" cols="8">
+              <file-upload />
+            </v-col>
             <v-col lg="2" md="2" cols="2"/>
           </v-row>
         </v-card>
