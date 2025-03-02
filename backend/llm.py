@@ -90,7 +90,7 @@ def generateQuiz(data):
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you generate 20 multiple choie and true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":['True', 'False'], "answer":""}, {"question":"", "choices":["a) answer a","b) answer b","c) answer c","d) answer d"], "answer":""}]}. \n\n''' + data
+            "content": '''can you generate 20 multiple choie and true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":['True', 'False'], "answer":""}, {"question":"", "choices":["a) answer","b) answer","c) answer","d) answer"], "answer":""}]}. \n\n''' + data
             }
         ]
     )
