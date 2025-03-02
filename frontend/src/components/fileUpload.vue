@@ -9,6 +9,13 @@
       <v-container fluid class="d-flex flex-column mt-n5">
         <v-file-input v-model="file" label="File input" variant="outlined" :multiple="false"></v-file-input>
         <v-btn color="secondary" @click="transcribe()">Upload</v-btn>
+
+        <v-card v-if="showTranscription">
+          <v-skeleton-loader v-if="loading" type="text"  />
+          <div v-else>
+            {{ transcription }}
+          </div>
+        </v-card>
       </v-container>
     </v-card>
 </template>
@@ -17,7 +24,22 @@
 // @ts-nocheck
 import * as fs from "fs"
 import { ref } from 'vue'
+import api from '@/api'
 
-const file = ref < File > ();
+const showTranscription = ref(false);
+const transcription = ref('');
+const loading = ref(false);
+const file = ref<File>();
+
+const transcribe = async () => {
+  const formData = new FormData();
+  formData.append('file', file.value);
+  const response = await api.post('/transcribe', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  console.log(response.data);
+}
 
 </script>
