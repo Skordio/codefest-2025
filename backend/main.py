@@ -82,7 +82,7 @@ def transcribe():
 def create():
     quiz = True if request.args.get("quiz") == "true" else False
     studyGuide = True if request.args.get("study_guide") == "true" else False
-    flashcards = True if request.args.get("flashcards") == "true" else False
+    flashcards = True if request.args.get("flash_cards") == "true" else False
 
     transcript = transcribe_audio_file(request)
 
