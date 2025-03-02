@@ -1,4 +1,4 @@
-import openai
+import openai, json, os, ast
 import json
 import os
 from dotenv import load_dotenv
@@ -9,59 +9,80 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 
-def generateStudyGuide(data):
+def parseResponse(responseString:str, main_key:str):
+    responseString = responseString.replace('\n', '')
+
+    formattingException = Exception("Response is not well formatted")
+    formattingException.add_note(responseString)
+
+    if responseString[0] == '{' and responseString[-1] == '}':
+        resultDict = json.loads(responseString)
+    else:
+        raise formattingException
+    
+    responseArray = resultDict[main_key]
+    
+    return responseArray
+
+
+def generateStudyGuide(data,):
     client = openai.OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model="gpt-4o-mini",  # or "gpt-3.5-turbo"
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you give me a study guide to review the content from this transcription and can you make it in json format result:{[{'main point':'', 'subpoints':'', 'concise and helpful explanation':''}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            "content": '''can you generate a study guide to review the content from this transcription, please respond in this json format only:{"study_guide":[{"main point":"", "subpoints":["2-3 brief","subpoints","in few words"], "explanation":"helpful description containing several sentences"}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
             }
         ]
     )
 
-    # print(response.choices[0].message.content)
-    resultString = response.choices[0].message.content
-    resultDict = json.loads(resultString)
-    return resultDict
+    try:
+        responseArray = parseResponse(response.choices[0].message.content, 'study_guide')
+    except Exception as e:
+        raise e
+        
+    return responseArray
 
 
 def generateFlashcards(data):
-    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    client = openai.OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model="gpt-4o-mini",  # or "gpt-3.5-turbo"
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you give me flash cards to use as a study guide based on this transcription, and can you make it in json format result:{[{'term/concept':'', 'explanation':':''}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            "content": '''can you generate flash cards for the main ideas included in this transcription, please respond in this json format only:{"flashcards":[{"term/concept":"","explanation":":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
             }
         ]
     )
 
-    # print(response.choices[0].message.content)
-    resultString = response.choices[0].message.content
-    resultDict = json.loads(resultString)
-    # print(resultDict) # Testing line only, comment after
-    return resultDict
+    try:
+        responseArray = parseResponse(response.choices[0].message.content, 'flashcards')
+    except Exception as e:
+        raise e
+        
+    return responseArray
     
 
 def generateQuiz(data):
-    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    client = openai.OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model="gpt-4o-mini",  # or "gpt-3.5-turbo"
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you give me multiple choice and true/false quiz questions with their answers from this transcription can you make it in json format result:{[{'question':'', 'choices':'', 'answer':''}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            "content": '''can you generate multiple choice and true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":["a":"", "b":"","c":"","d":""], "answer":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
             }
         ]
     )
 
-    # print(response.choices[0].message.content)
-    resultString = response.choices[0].message.content
-    resultDict = json.loads(resultString)
-    return resultDict
+    try:
+        responseArray = parseResponse(response.choices[0].message.content, 'quiz')
+    except Exception as e:
+        raise e
+        
+    return responseArray
 
 
 testData = '''00:00:00.000 This video is about learning styles.
@@ -440,4 +461,5 @@ testData = '''00:00:00.000 This video is about learning styles.
 00:14:22.070 I want to thank Google forsponsoring this part of the video
 00:14:24.360 and I want to thank you for watching.'''
 
-# print(generateGuide(testData)) # Testing line only
+generateStudyGuide(testData) # Testing line only
+
