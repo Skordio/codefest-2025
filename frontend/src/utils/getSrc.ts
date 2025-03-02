@@ -1,6 +1,6 @@
 export const getImgSrc = ( name:string ) => {
    
-    const path = `/assets/images/${name}`
+    const path = `/images/${name}`
     return path
     
     // const modules = import.meta.glob('/src/assets/photos/*.png', { eager: true }) 
