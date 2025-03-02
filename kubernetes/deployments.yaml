@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: ljtron/lockin-sg:v1  # Replace with your Docker Hub image
+          image: ljtron/lockin-sg:v3  # Replace with your Docker Hub image
           ports:
             - containerPort: 5000
           env:
