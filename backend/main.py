@@ -5,7 +5,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-from transcribe import transcribe_audio
+from transcribe import transcribe_audio_from_file, transcribe_audio_from_path
 
 app = Flask(__name__)
 CORS(app)  # Enables CORS for all routes
@@ -59,13 +59,13 @@ def transcribe():
         return jsonify({"error": "No file uploaded"}), 400
 
     file = request.files["file"]
+    
     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(file_path)
 
-    if not file_path or not os.path.exists(file_path):
-        return jsonify({"error": "Invalid file path"}), 400
 
-    transcript = transcribe_audio(file_path)
+    transcript = transcribe_audio_from_path(file_path)
+    os.remove(file_path)
     return jsonify({"transcript": transcript})
 
 #End API stuff
