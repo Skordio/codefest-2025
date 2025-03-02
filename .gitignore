@@ -209,3 +209,4 @@ coverage
 *.tsbuildinfo
 
 openaikey.ts
+.vercel
