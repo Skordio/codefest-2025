@@ -43,8 +43,17 @@ import { getImgSrc } from './utils';
 import { RouterLink, RouterView } from 'vue-router'
 import fileUpload from './components/fileUpload.vue';
 import { useDisplay } from 'vuetify';
+import { onMounted } from "vue";
+
+onMounted(() => {
+  const audio = new Audio("/src/frutiger.mp3");
+  audio.loop = true;
+  audio.volume = 0.5;
+  audio.play().catch(() => console.log("Autoplay blocked"));
+});
 
 const title = ref("Lock In SG")
+
 
 const { mdAndUp } = useDisplay();
 
@@ -71,6 +80,9 @@ const vRowClass = computed(() => {
     return '';
   }
 })
+
+
+
 
 
 </script>
