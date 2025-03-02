@@ -1,10 +1,7 @@
-import os
-from openai import OpenAI
-from dotenv import load_dotenv
+import os, openai
 
-load_dotenv()
 api_key = os.getenv("OPENAI_APIKEY")
-client = OpenAI(api_key=api_key)
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def transcribe_audio_from_file(sound_file):
     transcription = client.audio.transcriptions.create(
