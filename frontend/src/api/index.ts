@@ -17,7 +17,7 @@ class ApiService {
   async get(endpoint: string) {
     try {
       const response = await this.api.get(endpoint);
-      return response.data;
+      return response;
     } catch (error) {
       console.error('API GET error:', error);
       throw error;
@@ -25,10 +25,10 @@ class ApiService {
   }
 
   // Example: Post data to Flask backend
-  async post(endpoint: string, data: any) {
+  async post(endpoint: string, data: any, headers?: any) {
     try {
-      const response = await this.api.post(endpoint, data);
-      return response.data;
+      const response = await this.api.post(endpoint, data, headers);
+      return response;
     } catch (error) {
       console.error('API POST error:', error);
       throw error;
