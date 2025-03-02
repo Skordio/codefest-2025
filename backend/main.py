@@ -80,9 +80,9 @@ def transcribe():
 
 @app.route("/create", methods=["POST"])
 def create():
-    quiz = request.args.get("quiz", default=False)
-    studyGuide = request.args.get("study_guide", default=True)
-    flashcards = request.args.get("flash_cards", default=False)
+    quiz = True if request.args.get("quiz") == "true" else False
+    studyGuide = True if request.args.get("study_guide") == "true" else False
+    flashcards = True if request.args.get("flashcards") == "true" else False
 
     transcript = transcribe_audio_file(request)
 
