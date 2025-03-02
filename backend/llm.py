@@ -90,7 +90,7 @@ def generateQuiz(data):
         messages=[
             # {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", 
-            "content": '''can you generate 8-10 multiple choice and 8-10 true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":['True', 'False'], "answer":""}, {"question":"", "choices":["a","b","c","d"], "answer":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
+            "content": '''can you generate 8-10 multiple choice and 8-10 true/false quiz questions with answers from this transcription, please respond in this json format only:{"quiz":[{"question":"", "choices":['True', 'False'], "answer":""}, {"question":"", "choices":["a) answer a","b) answer b","c) answer c","d) answer d"], "answer":""}]}. Please do not include labels beyond the minimum required for a json (i.e. do not have any writing or code before the json file) \n''' + data
             }
         ]
     )
@@ -109,6 +109,8 @@ def generateQuiz(data):
             ]
         )
         responseArray = parseResponse(response.choices[0].message.content)
+
+    print(responseArray)
         
     return responseArray
 
