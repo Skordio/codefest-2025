@@ -34,5 +34,13 @@ import fileUpload from './components/fileUpload.vue';
 
 const title = ref("Lock In SG")
 
+import { onMounted } from "vue";
+
+onMounted(() => {
+  const audio = new Audio("/src/frutiger.mp3");
+  audio.loop = true;
+  audio.volume = 0.5;
+  audio.play().catch(() => console.log("Autoplay blocked"));
+});
 
 </script>
