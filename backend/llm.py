@@ -459,5 +459,5 @@ testData = '''00:00:00.000 This video is about learning styles.
 00:14:22.070 I want to thank Google forsponsoring this part of the video
 00:14:24.360 and I want to thank you for watching.'''
 
-print(str(generateStudyGuide(testData)).replace("\'", "\"")) # Testing line only
+# print(str(generateStudyGuide(testData)).replace("\'", "\"")) # Testing line only
 
