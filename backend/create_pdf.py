@@ -105,7 +105,8 @@ def create_quiz_pdf(data, filename="quiz.pdf"):
     # Extract quiz content
     answers = []
     for index, question in enumerate(data.get("quiz", []), start=1):
-        content.append(Paragraph(f"{index}. {question["question"]}", question_style))
+        question_quiz = question["question"]
+        content.append(Paragraph(f"{index}. {question_quiz}", question_style))
         
         # Choices
         if "choices" in question:
@@ -115,7 +116,8 @@ def create_quiz_pdf(data, filename="quiz.pdf"):
             content.append(choice_list)
         
         # Store answers for the answer sheet
-        answers.append(Paragraph(f"{index}. {question["answer"]}", answer_style))
+        answers_quiz = question["answer"]
+        answers.append(Paragraph(f"{index}. {answers_quiz}", answer_style))
         
         content.append(Spacer(1, 12))
     
