@@ -21,9 +21,8 @@ def transcribe_audio_from_path(file_path):
             file=sound_file, 
             response_format="text"
         )
-    os.remove(file_path)
-
-    return transcription
+        os.remove(file_path)
+        return transcription
 
 def main():
     file_path = os.path.join('uploads/test-file.mp3')

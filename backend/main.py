@@ -10,6 +10,7 @@ from llm import generateQuiz, generateFlashcards, generateStudyGuide
 from create_pdf import create_flashcards_pdf, create_quiz_pdf, create_study_guide_pdf
 from io import BytesIO
 import zipfile
+import json
 
 app = Flask(__name__)
 CORS(app)  # Enables CORS for all routes
@@ -81,8 +82,76 @@ def transcribe_audio_file(request:Request) -> str:
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
+    # if 'audio' not in request.files:
+    #     return jsonify({'error': 'No audio file provided'}), 400
+    
+    # audio_file = request.files['audio']
+    # if audio_file.filename == '':
+    #     return jsonify({'error': 'No selected file'}), 400
+    
+    # file_path = os.path.join(UPLOAD_FOLDER, audio_file.filename)
+    # audio_file.save(file_path)
+    
+    # return jsonify({'message': 'File uploaded successfully', 'file_path': file_path}), 200
+
     transcript = transcribe_audio_file(request)
     return jsonify({"transcript": transcript})
+
+@app.route("/createQuiz", methods=["POST"])
+def createQuiz():
+    if request.is_json:
+        data = request.get_json()
+        transcript = data.get("transcript", "test")
+        print(transcript)
+        resultOfQuiz = generateQuiz(transcript)
+        #print(generateQuiz(transcript))
+        print("The type resultOfQuiz ", type(resultOfQuiz))
+        print(resultOfQuiz)
+
+
+        #quiz_file_path = create_quiz_pdf(generateQuiz(transcript))
+        #pdf_files.append(quiz_file_path)
+        return jsonify({"message": str(resultOfQuiz)}), 200
+    else:
+        return jsonify({"error": "Request must be JSON"}), 400
+
+@app.route("/createStudyGuide", methods=["POST"])
+def createStudyGuide():
+    if request.is_json:
+        data = request.get_json()
+        transcript = data.get("transcript", "test")
+        print(transcript)
+        resultOfStudyGuide = generateStudyGuide(transcript)
+        #print(generateQuiz(transcript))
+        print("The type result of StudyGuide ", type(resultOfStudyGuide))
+        print(resultOfStudyGuide)
+
+
+        #quiz_file_path = create_quiz_pdf(generateQuiz(transcript))
+        #pdf_files.append(quiz_file_path)
+        return jsonify({"message": str(resultOfStudyGuide)}), 200
+    
+    return jsonify({"error": "Request must be JSON"}), 400
+    # return jsonify({"error": "no done yet"}), 400
+
+@app.route("/createFlashCards", methods=["POST"])
+def createFlashCards():
+    if request.is_json:
+        data = request.get_json()
+        transcript = data.get("transcript", "test")
+        print(transcript)
+        resultFlashcards = generateFlashcards(transcript)
+        #print(generateQuiz(transcript))
+        print("The type result of Flashcards ", type(resultFlashcards))
+        print(resultFlashcards)
+
+
+        #quiz_file_path = create_quiz_pdf(generateQuiz(transcript))
+        #pdf_files.append(quiz_file_path)
+        return jsonify({"message": str(resultFlashcards)}), 200
+    
+    return jsonify({"error": "Request must be JSON"}), 400
+    #return jsonify({"error": "no done yet"}), 400
 
 @app.route("/create", methods=["POST"])
 def create():
